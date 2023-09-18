@@ -6,7 +6,7 @@ const cors = require('cors');
 require('./db/conn');
 const Controller = require('./controller/signup');
 const User=require('./model/user');
-const port = process.env.PORT || 8070;
+const port = process.env.PORT || 7070;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
