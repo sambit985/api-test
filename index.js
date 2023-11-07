@@ -15,6 +15,11 @@ app.use(cors());
 // This Rout is used for post user data 
 app.post('/api/user_regist', Controller.signUp);
 
+// Define a GET route
+app.get('/home', (req, res) => {
+    res.send('Hello, this is a GET route!');
+});
+
 
 // App running on server
 app.listen(port,(err) => {
