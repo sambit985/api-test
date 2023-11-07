@@ -37,7 +37,7 @@ pipeline {
      stage('Deploy to aws'){
         steps{
           sshagent(['ssh-agent']){
-            sh 'ssh -tt -o StrictHostKeyChecking=no ubuntu@35.153.210.220 ls'
+            sh 'ssh -v -tt -o StrictHostKeyChecking=no ubuntu@35.153.210.220 ls'
           }
         }
        }
