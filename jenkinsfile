@@ -1,13 +1,9 @@
 pipeline {
     agent any
 
- 
-
     environment {
         PATH = "$PATH:/usr/bin/node"
     }
-
- 
 
     stages {
         stage('GetCode') {
@@ -16,14 +12,11 @@ pipeline {
             }
         }
 
- 
-
         stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
-    
 
         stage('SonarQube analysis') {
             steps {
@@ -34,31 +27,23 @@ pipeline {
             }
         }
 
-     stage('Deploy to AWS') {
-       when{
-         expression{
-            currentBuild.result == 'SUCCESS'  // only execute when build success
-         }
-       }
-     steps{
-       script{
-        //Deploy application using ssh
-         sshPublisher(
-             publishers:[
-                sshPublisherDesc(
-                     configName: 'your-ssh-config', // SSH configuration from Jenkins
-                    verbose: true,
-                     transfers: [
-                         sshTransfer(
-                            execCommand: "scp -r /path/to/your/app user@your-aws-instance:/destination/path/"
-                            )
-                     ]
-                )
-             ]
-           )
-         }
-       }
-    }
 
+        stage('Deploy to AWS') {
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = 'aws server' // Make sure to match the SSH server name in your Jenkins configuration
+
+                    remote.host = '35.153.210.220' // The IP address of your AWS instance
+                    remote.user = 'ubuntu' // The username for SSH access
+
+                    remote.allowAnyHosts = true // Optional, allows connecting to unverified hosts, use cautiously
+
+                    sshPut remote: remote, from: 'local/nodejs/file.js', into: '/home/ubuntu' // Adjust the source and destination paths as needed
+                }
+            }
+        }
+      
+   
     }
 }
