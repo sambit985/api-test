@@ -21,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install',
-                sh "npm run build"
+               
             }
         }
     
@@ -35,16 +35,7 @@ pipeline {
             }
         }
 
-   stage('Deploy to AWS') {
-            steps {
-                script {
-                  
-                         sh "scp -o StrictHostKeyChecking=no ${workspace}/index.js ubuntu@3.81.114.150:/home/ubuntu"
-                        // Replace the command inside the single quotes with your desired deployment command
-                    
-                }
-            }
-        }
+
 
     }
 }
