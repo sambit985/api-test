@@ -34,13 +34,5 @@ pipeline {
             }
         }
 
-     stage('Deploy to AWS') {
-       when{
-         expression{
-            currentBuild.result == 'SUCCESS'  // only execute when build success
-         }
-       }
-    }
-
     }
 }
