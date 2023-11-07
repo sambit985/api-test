@@ -23,8 +23,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-
- 
+    
 
         stage('SonarQube analysis') {
             steps {
@@ -34,5 +33,32 @@ pipeline {
                 }
             }
         }
+
+     stage('Deploy to AWS') {
+       when{
+         expression{
+            currentBuild.result == 'SUCCESS'  // only execute when build success
+         }
+       }
+     steps{
+       script{
+        //Deploy application using ssh
+         sshPublisher(
+             publishers:[
+                sshPublisherDesc(
+                     configName: 'your-ssh-config', // SSH configuration from Jenkins
+                    verbose: true,
+                     transfers: [
+                         sshTransfer(
+                            execCommand: "scp -r /path/to/your/app user@your-aws-instance:/destination/path/"
+                            )
+                     ]
+                )
+             ]
+           )
+         }
+       }
+    }
+
     }
 }
