@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['35.153.210.220']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.81.114.150 'ls -l'"
+                        sh "scp -o StrictHostKeyChecking=no /home/ubuntu ubuntu@3.81.114.150:/home/ubuntu"
                         // Replace the command inside the single quotes with your desired deployment command
                     }
                 }
