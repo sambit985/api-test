@@ -1,9 +1,13 @@
 pipeline {
     agent any
 
+ 
+
     environment {
         PATH = "$PATH:/usr/bin/node"
     }
+
+ 
 
     stages {
         stage('GetCode') {
@@ -12,11 +16,14 @@ pipeline {
             }
         }
 
+ 
+
         stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
+    
 
         stage('SonarQube analysis') {
             steps {
@@ -26,7 +33,14 @@ pipeline {
                 }
             }
         }
-      
-   
+
+     stage('Deploy to AWS') {
+       when{
+         expression{
+            currentBuild.result == 'SUCCESS'  // only execute when build success
+         }
+       }
+    }
+
     }
 }
