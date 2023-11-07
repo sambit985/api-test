@@ -26,23 +26,6 @@ pipeline {
                 }
             }
         }
-
-
-        stage('Deploy to AWS') {
-            steps {
-                script {
-                    def remote = [:]
-                    remote.name = 'aws server' // Make sure to match the SSH server name in your Jenkins configuration
-
-                    remote.host = '35.153.210.220' // The IP address of your AWS instance
-                    remote.user = 'ubuntu' // The username for SSH access
-
-                    remote.allowAnyHosts = true // Optional, allows connecting to unverified hosts, use cautiously
-
-                    sshPut remote: remote, from: '/home/ubuntu/api-test/index.js', into: '/home/ubuntu' // Adjust the source and destination paths as needed
-                }
-            }
-        }
       
    
     }
