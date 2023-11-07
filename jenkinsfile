@@ -39,7 +39,7 @@ pipeline {
 
                     remote.allowAnyHosts = true // Optional, allows connecting to unverified hosts, use cautiously
 
-                    sshPut remote: remote, from: 'local/nodejs/file.js', into: '/home/ubuntu' // Adjust the source and destination paths as needed
+                    sshPut remote: remote, from: '/home/ubuntu/api-test/index.js', into: '/home/ubuntu' // Adjust the source and destination paths as needed
                 }
             }
         }
