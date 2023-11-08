@@ -22,7 +22,7 @@ pipeline {
 
   stage('deploy'){
      steps{
-         sh "scp -r -i ${SSH_KEY_PATH} /var/lib/jenkins/workspace/ssh/ ubuntu@3.81.114.150:/home/ubuntu/"
+         sh "scp -r -i ${SSH_KEY_PATH} /var/lib/jenkins/workspace/test/ ubuntu@3.81.114.150:/home/ubuntu/"
        }
      }
 
