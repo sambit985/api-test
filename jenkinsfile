@@ -34,8 +34,7 @@ pipeline {
     }
    stage('Deploy') {
       steps {
-        // Copy the build files to your EC2 instance using SSH
-        sh "scp -i ${SSH_KEY_PATH} C:\Users\Sambit\Downloads\api-test-master\api-test-master ubuntu@${EC2_INSTANCE_IP}:/home/ubuntu"
+       sh "scp -i ${SSH_KEY_PATH} C:\Users\Sambit\Downloads\api-test-master\api-test-master ubuntu@3.81.114.150:/home/ubuntu "
       }
      }
   }
