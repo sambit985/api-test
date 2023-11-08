@@ -19,14 +19,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "npm install sonar-scanner"
-                    sh "npm run sonar-scanner"
-                }
-            }
-        }
+
   stage('deploy'){
      steps{
          sh "scp -r -i ${SSH_KEY_PATH} /var/lib/jenkins/workspace/ssh/ ubuntu@3.81.114.150:/home/ubuntu/"
