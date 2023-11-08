@@ -1,24 +1,21 @@
 pipeline {
     agent any
 
-       
-
     environment {
         PATH = "$PATH:/usr/bin/node"
-          // Define environment variables
         AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
         AWS_SECRET_ACCESS_KEY = credentials('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')
         EC2_INSTANCE_IP = '3.81.114.150'
         SSH_KEY_PATH = 'C:\\Users\\Sambit\\Downloads\\second-jenkin.pem'
 
-    }
+       }
 
     stages {
         stage('GetCode') {
             steps {
                 git branch: 'master', url: 'https://github.com/sambit985/api-test.git'
+              }
             }
-        }
 
         stage('Build') {
             steps {
@@ -35,10 +32,10 @@ pipeline {
                 }
             }
         }
-    stage('Deploy') {
+      stage('Deploy') {
             steps {
                 // Copy the build files to your EC2 instance using SSH
-                sh "scp -i ${SSH_KEY_PATH} -r ./build ubuntu@3.81.114.150:/home/ubuntu"
+                sh "scp -i ${SSH_KEY_PATH} -r ./build ubuntu@${EC2_INSTANCE_IP}:/var/www/html"
             }
           }
     }
