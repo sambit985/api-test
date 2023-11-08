@@ -15,6 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                 sh 'npm run build'
             }
         }
 
@@ -23,6 +24,25 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                     sh "npm install sonar-scanner"
                     sh "npm run sonar-scanner"
+                }
+            }
+        }
+    stage('Deploy to EC2') {
+            steps {
+                script {
+                    // Use AWS CLI commands to copy your build artifacts to the EC2 instance
+                    def keyPair = 'second-jenkin.pem'
+                    def instanceIp = '3.81.114.150'
+
+                    def buildDirectory = sh(script: 'ls -d */ | grep -E "dist|build|out"', returnStdout: true).trim()
+
+                    if (buildDirectory) {
+                        sh "scp -i ${keyPair} -r ${buildDirectory} ubuntu@${instanceIp}:/home/ubuntu"
+                        sh "ssh -i ${keyPair} ubuntu@${instanceIp} 'sudo systemctl restart your-application'"
+                        // Change the command as per your deployment process
+                    } else {
+                        error "No build directory found to deploy"
+                    }
                 }
             }
         }
