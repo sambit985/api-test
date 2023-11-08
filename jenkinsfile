@@ -19,11 +19,19 @@ pipeline {
             }
         }
 
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh "npm install sonar-scanner"
+                    sh "npm run sonar-scanner"
+                }
+            }
+        }
 
-  stage('deploy') {
+    stage('deploy') {
      steps {
             sh "rsync -azh --info=progress2 --info=name0 -e $SSH_COMMAND  /var/lib/jenkins/workspace/ssh-new-1/ ubuntu@3.81.114.150:/www/"
        }
      }
-}
+  }
 }
