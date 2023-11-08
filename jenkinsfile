@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PATH = "$PATH:/usr/bin/node"
-       SSH_KEY_PATH = 'C:\Users\Sambit\Downloads\second-jenkin.pem'
+       SSH_KEY_PATH = 'C:\\Users\\Sambit\\Downloads\\second-jenkin.pem'
     }
 
     stages {
