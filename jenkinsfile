@@ -1,42 +1,42 @@
 pipeline {
-    agent any
+  agent any
 
-    environment {
-        PATH = "$PATH:/usr/bin/node"
-        AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
-        AWS_SECRET_ACCESS_KEY = credentials('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')
-        EC2_INSTANCE_IP = '3.81.114.150'
-        SSH_KEY_PATH = 'C:\\Users\\Sambit\\Downloads\\second-jenkin.pem'
+  environment {
+    PATH = "$PATH:/usr/bin/node"
+    AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
+    AWS_SECRET_ACCESS_KEY = credentials('Jq4cpqdkuY/49kJ4if1sxbxeBdNKcZsqMbHsyuS7')
+    EC2_INSTANCE_IP = '3.81.114.150'
+    SSH_KEY_PATH = 'C:\\Users\\Sambit\\Downloads\\second-jenkin.pem'
 
-       }
+    }
 
-    stages {
-        stage('GetCode') {
-            steps {
-                git branch: 'master', url: 'https://github.com/sambit985/api-test.git'
-              }
-            }
+  stages {
+    stage('GetCode') {
+      steps {
+        git branch: 'master', url: 'https://github.com/sambit985/api-test.git'
+       }
+      }
 
-        stage('Build') {
-            steps {
-                sh 'npm install'
-                 sh 'npm run build'
-            }
-        }
+    stage('Build') {
+      steps {
+        sh 'npm install'
+         sh 'npm run build'
+      }
+    }
 
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "npm install sonar-scanner"
-                    sh "npm run sonar-scanner"
-                }
-            }
-        }
-      stage('Deploy') {
-            steps {
-                // Copy the build files to your EC2 instance using SSH
-                sh "scp -i ${SSH_KEY_PATH} -r ./build ubuntu@${EC2_INSTANCE_IP}:/var/www/html"
-            }
-          }
-    }
+    stage('SonarQube analysis') {
+      steps {
+        withSonarQubeEnv('sonar') {
+          sh "npm install sonar-scanner"
+          sh "npm run sonar-scanner"
+        }
+      }
+    }
+   stage('Deploy') {
+      steps {
+        // Copy the build files to your EC2 instance using SSH
+        sh "scp -i ${SSH_KEY_PATH} -r ./build ubuntu@${EC2_INSTANCE_IP}:/var/www/html"
+      }
+     }
+  }
 }
