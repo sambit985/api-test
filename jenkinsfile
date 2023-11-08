@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         PATH = "$PATH:/usr/bin/node"
-       SSH_KEY_PATH = '/var/lib/jenkins/.ssh/ida_rsa'
     }
 
     stages {
@@ -22,7 +21,7 @@ pipeline {
 
   stage('deploy'){
      steps{
-         sh "scp -r -i ${SSH_KEY_PATH} /var/lib/jenkins/workspace/ssh-new/ ubuntu@3.81.114.150:/home/ubuntu/"
+        rsync -azh --info=progress2 --info=name0 -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  /var/lib/jenkins/workspace/ssh-new/ ubuntu@3.81.114.150:/www/
        }
      }
 
