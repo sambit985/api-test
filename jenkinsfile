@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PATH = "$PATH:/usr/bin/node"
-       SSH_KEY_PATH = '~/.ssh/ida_rsa'
+       SSH_KEY_PATH = 'var/lib/jenkins/.ssh/ida_rsa'
     }
 
     stages {
