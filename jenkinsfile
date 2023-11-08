@@ -35,10 +35,10 @@ stage('Deploy to EC2') {
              def keyPair = 'second-jenkin.pem'
             def instanceIp = '3.81.114.150'
 
-            def directories = sh(script: 'ls -d */', returnStdout: true).trim()
+             def directories = sh(script: 'ls -d controller/ db/ model/ node_modules/', returnStdout: true).trim()
             echo "Directories found: ${directories}"
 
-            def buildDirectory = sh(script: 'ls -d */ | grep -E "dist|build|out"', returnStdout: true).trim()
+            def buildDirectory = sh(script: 'ls -d controller/ db/ model/ node_modules/ | grep -E "(dist|build|out)"', returnStdout: true).trim()
             echo "Build directory found: ${buildDirectory}"
 
             if (buildDirectory) {
