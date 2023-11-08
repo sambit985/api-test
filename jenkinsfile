@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PATH = "$PATH:/usr/bin/node"
+       SSH_KEY_PATH = 'C:\Users\Sambit\Downloads\second-jenkin.pem'
     }
 
     stages {
@@ -26,6 +27,11 @@ pipeline {
                 }
             }
         }
+  stage('deploy'){
+     steps{
+         sh "scp -i ${SSH_KEY_PATH} C:\Users\Sambit\Downloads\api-test-master\api-test-master\index.js ec2-user@3.81.114.150:/home/ubuntu"
+       }
+     }
 
     }
 }
