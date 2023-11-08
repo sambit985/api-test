@@ -3,11 +3,6 @@ pipeline {
 
   environment {
     PATH = "$PATH:/usr/bin/node"
-    AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
-    AWS_SECRET_ACCESS_KEY = credentials('Jq4cpqdkuY/49kJ4if1sxbxeBdNKcZsqMbHsyuS7')
-    EC2_INSTANCE_IP = '3.81.114.150'
-    SSH_KEY_PATH = 'C:\\Users\\Sambit\\Downloads\\second-jenkin.pem'
-
     }
 
   stages {
@@ -32,10 +27,5 @@ pipeline {
         }
       }
     }
-   stage('Deploy') {
-      steps {
-       sh "scp -i ${SSH_KEY_PATH} C:\Users\Sambit\Downloads\api-test-master\api-test-master ubuntu@3.81.114.150:/home/ubuntu "
-      }
-     }
   }
 }
