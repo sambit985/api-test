@@ -9,7 +9,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
         AWS_SECRET_ACCESS_KEY = credentials('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')
         EC2_INSTANCE_IP = '3.81.114.150'
-        SSH_KEY_PATH = 'C:\Users\Sambit\Downloads'
+        SSH_KEY_PATH = 'C:\Users\Sambit\Downloads\second-jenkin.pem'
 
     }
 
