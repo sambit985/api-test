@@ -1,8 +1,16 @@
 pipeline {
     agent any
 
+       
+
     environment {
         PATH = "$PATH:/usr/bin/node"
+          // Define environment variables
+        AWS_ACCESS_KEY_ID = credentials('AKIAZFAMQAI2GFBXWV6A')
+        AWS_SECRET_ACCESS_KEY = credentials('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')
+        EC2_INSTANCE_IP = '3.81.114.150'
+        SSH_KEY_PATH = 'C:\Users\Sambit\Downloads'
+
     }
 
     stages {
@@ -27,29 +35,12 @@ pipeline {
                 }
             }
         }
-
-
-stage('Deploy to EC2') {
-    steps {
-        script {
-             def keyPair = 'second-jenkin.pem'
-            def instanceIp = '3.81.114.150'
-
-             def directories = sh(script: 'ls -d controller/ db/ model/ node_modules/', returnStdout: true).trim()
-            echo "Directories found: ${directories}"
-
-            def buildDirectory = sh(script: 'ls -d controller/ db/ model/ node_modules/ | grep -E "(dist|build|out)"', returnStdout: true).trim()
-            echo "Build directory found: ${buildDirectory}"
-
-            if (buildDirectory) {
-                sh "scp -i ${keyPair} -r ${buildDirectory} ubuntu@${instanceIp}:/home/ubuntu"
-                sh "ssh -i ${keyPair} ubuntu@${instanceIp} 'sudo systemctl restart your-application'"
-            } else {
-                error "No build directory found to deploy"
+    stage('Deploy') {
+            steps {
+                // Copy the build files to your EC2 instance using SSH
+                sh "scp -i ${SSH_KEY_PATH} -r ./build ubuntu@${EC2_INSTANCE_IP}:/home/ubuntu"
             }
-        }
-    }
-}
+        }
 
     }
 }
