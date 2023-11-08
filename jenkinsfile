@@ -19,9 +19,9 @@ pipeline {
         }
 
 
-  stage('deploy'){
+  stage('deploy') {
      steps {
-            rsync -azh --info=progress2 --info=name0 -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  /var/lib/jenkins/workspace/ssh-new/ ubuntu@3.81.114.150:/www/
+            sh "rsync -azh --info=progress2 --info=name0 -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  /var/lib/jenkins/workspace/ssh-new/ ubuntu@3.81.114.150:/www/"
        }
      }
 }
