@@ -34,14 +34,7 @@ pipeline {
                 }
             }
         }
-      stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "npm install sonar-scanner"
-                    sh "npm run sonar-scanner"
-                }
-            }
-        }
+     
     stage('deploy') {
      steps {
            echo 'Delivering the app to AWS Server'
