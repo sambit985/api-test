@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/home/ubuntu/.nvm/versions/node/v18.18.2/bin:$PATH"
+        PATH = "/var/lib/jenkins/.nvm/versions/node/v18.18.2/bin:$PATH"
         NVM_DIR = '/var/lib/jenkins/.nvm'
         SSH_COMMAND = "ssh -i /var/lib/jenkins/.ssh/id_rsa"
     }
@@ -14,19 +14,17 @@ pipeline {
             }
         }
 
-     stage('Install Dependencies') {
-    steps {
-        script {
-            echo 'Installing Node.js and npm...'
-            sh 'env'  // Add this line to print environment variables for debugging
-            sh 'ls -la /var/lib/jenkins/.nvm'  // Add this line to check the contents of the .nvm directory
-            sh 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 18'
-            sh 'npm install'
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    echo 'Installing Node.js and npm...'
+                    sh 'env'
+                    sh 'ls -la /var/lib/jenkins/.nvm'
+                    sh 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 18'
+                    sh 'npm install'
+                }
+            }
         }
-    }
-}
-
-
 
         stage('Build') {
             steps {
@@ -38,4 +36,3 @@ pipeline {
         }
     }
 }
-
