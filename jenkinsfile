@@ -13,16 +13,17 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    echo 'Installing Node.js and npm...'
-                    // Use nvm to set the Node.js version
-                    sh 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use 18'
-                    sh 'npm install'
-                }
-            }
+    stage('Install Dependencies') {
+    steps {
+        script {
+            echo 'Installing Node.js and npm...'
+            // Use nvm to set the Node.js version
+            sh 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 18'
+            sh 'npm install'
         }
+    }
+}
+
 
         stage('Build') {
             steps {
