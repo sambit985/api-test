@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PATH = "/home/ubuntu/.nvm/versions/node/v18.18.2/bin:$PATH"
+        NVM_DIR = '/var/lib/jenkins/.nvm'
         SSH_COMMAND = "ssh -i /var/lib/jenkins/.ssh/id_rsa"
     }
 
