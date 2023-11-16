@@ -45,6 +45,7 @@ pipeline {
     stage('deploy') {
      steps {
            echo 'Delivering the app to AWS Server'
+              sh 'ssh-keyscan -H 3.81.114.150 >> ~/.ssh/known_hosts'
             sh "rsync -azh --info=progress2 --info=name0 -e $SSH_COMMAND  /var/lib/jenkins/workspace/ ubuntu@3.81.114.150:/home/ubuntu/host/"
        }
      }
