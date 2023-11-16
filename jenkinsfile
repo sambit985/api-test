@@ -13,16 +13,18 @@ pipeline {
             }
         }
 
-    stage('Install Dependencies') {
+     stage('Install Dependencies') {
     steps {
         script {
             echo 'Installing Node.js and npm...'
-            // Use nvm to set the Node.js version
+            sh 'env'  // Add this line to print environment variables for debugging
+            sh 'ls -la /var/lib/jenkins/.nvm'  // Add this line to check the contents of the .nvm directory
             sh 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 18'
             sh 'npm install'
         }
     }
 }
+
 
 
         stage('Build') {
