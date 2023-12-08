@@ -34,6 +34,14 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image'){
+            steps{
+              script{
+                sh 'docker build -t :$VERSION .'
+                sh 'docker build -t :latest .'
+              }
+            }
+        }
 
         stage('SonarQube analysis') {
             steps {
